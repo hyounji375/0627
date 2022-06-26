@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      let number = 5;
+      const callback = (number) => {
+        number = number + 1;
+        setTimeout(() => {
+          console.log(number);
+        }, 500);
+        return number;
+      };
+
+      const promise = new Promise((resolve, reject) => {
+        console.log(callback(number)); //6 나온다.
+        resolve(callback(number));
+        //실행부가 성공하면(6이 출력됐으면) 이 함수의 리턴값(6)이 해당 함수가 된다.callback 함수를 실행해라.
+        reject("실패");
+      });
+      promise
+        //resolve의 값(6)이 result로 전달됨.
+        //then은 실행했는지 물어보는 것.
+        .then((result) => {
+          return callback(result);
+        }) //7
+        .then((result) => {
+          return callback(result);
+        }) //8
+        .then((result) => {
+          return callback(result);
+        })
+        .then((result) => {
+          return callback(result);
+        })
+        .then((result) => {
+          return callback(result);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      //catch는 promise가 실패했을 때
+      //result는 지역변수가 된다.
+
+      let state = false;
+      const promiseBoolean = new Promise((resolve, reject) => {
+        if (state) {
+          resolve("성공");
+        } else {
+          reject("실패"); //reject는 콘솔창에 빨갛게 에러로 뜬다. 그래서 에러를 catch로 가져오는 것.
+        }
+      });
+      promiseBoolean
+        .then((message) => {
+          console.log(message);
+        })
+        //성공했으면 그 결가값을 가져와서 써
+        .catch((err) => {
+          console.log(err);
+        });
+      //실패했으면 그 실패한 값을 가져와서 써
+
+      //promise는 함수가 아님. 타입을 콘솔 찍어봐도 function이 아니라 promise로 찍힘.
+    </script>
+  </head>
+  <body></body>
+</html>

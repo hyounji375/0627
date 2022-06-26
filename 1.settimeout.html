@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>setTime</title>
+  </head>
+  <body>
+    <div id="select">저를 선택해주세요.</div>
+    <button onclick="clearSetTime()">취소</button>
+    <button onclick="clearSetInval()">취소</button>
+    <script>
+      const select = document.getElementById("select");
+      const printSelect = () => {
+        console.log(select.innerText);
+      };
+      const setTimePrint = setTimeout(printSelect, 3000);
+      const setIntvalprint = setInterval(printSelect, 3000);
+      //setTimeout은 변수에만 저장해줘도 실행이 된다.
+      //나중에 setTimeout을 지워줄 때 어떤 걸 지워줄지 정확히 해주기 위해 변수에 넣음.
+      // setTimeout(printSelect, 3000); 자체가 이미 실행부.
+
+      /*setTimeout(() => {
+            console.log(select.innerText);
+          }, 5000);*/
+      const clearSetTime = () => {
+        clearTimeout(setTimePrint);
+      };
+      const clearSetInval = () => {
+        clearInterval(setIntvalprint);
+      };
+    </script>
+  </body>
+</html>
